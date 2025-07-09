@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    // Example: you can set your items here
+    var items = new[] {
+        new { Title = "Streaming Progress Updates in Long-Running ASP.NET Core Requests", Action = "Index", Color = "blue" },
+        new { Title = "Privacy", Action = "Privacy", Color = "gray" },
+        new { Title = "Sample Item 3", Action = "Sample3", Color = "green" },
+        new { Title = "Sample Item 4", Action = "Sample4", Color = "red" },
+        new { Title = "Sample Item 5", Action = "Sample5", Color = "purple" },
+        new { Title = "Sample Item 6", Action = "Sample6", Color = "orange" },
+        new { Title = "Sample Item 7", Action = "Sample7", Color = "teal" },
+        new { Title = "Sample Item 8", Action = "Sample8", Color = "indigo" },
+        // Add more items as needed
+    };
+    int cellWidth = 280; // Minimum width for each cell
+}
+
+<div class="flex justify-left items-start min-h-screen w-full">
+    <div id="myGrid" class="grid gap-4 w-full h-full"
+         style="grid-auto-rows: 200px; grid-auto-flow: row;">
+        @foreach (var item in items)
+        {
+            <div class="flex items-center justify-center border-2 rounded-lg w-full h-full">
+                <a class="block w-full h-full text-@item.Color-600 rounded-lg text-center p-4 font-semibold hover:bg-@item.Color-50 transition" asp-area="" asp-controller="Home" asp-action="@item.Action">
+                    @item.Title
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const grid = document.getElementById('myGrid');
+    const cellMinWidth = @cellWidth;
+    function updateGridColumns() {
+        const gridWidth = grid.offsetWidth;
+        const cols = Math.max(1, Math.floor(gridWidth / cellMinWidth));
+        grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    }
+    window.addEventListener('resize', updateGridColumns);
+    updateGridColumns();
+});
+</script>
+}

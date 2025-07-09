@@ -1,0 +1,65 @@
+# .gitignore for ASP.NET Core, C#, and Node/Tailwind projects
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# IIS
+.vs/
+/.vs/
+*.dbmdl
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compiled CSS (optional, if you build Tailwind locally)
+wwwroot/css/tailwind.css
+
+# Environment files
+.env
+.env.*
+
+# Others
+publish/
+
+# Rider
+.idea/
+*.sln.iml
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotCover
+*.dotCover
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# NuGet Packages Folder
+packages/
