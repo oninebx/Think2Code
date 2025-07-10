@@ -2,14 +2,14 @@
     ViewData["Title"] = "Home Page";
     // Example: you can set your items here
     var items = new[] {
-        new { Title = "Streaming Progress Updates in Long-Running ASP.NET Core Requests", Action = "Index", Color = "blue" },
-        new { Title = "Privacy", Action = "Privacy", Color = "gray" },
-        new { Title = "Sample Item 3", Action = "Sample3", Color = "green" },
-        new { Title = "Sample Item 4", Action = "Sample4", Color = "red" },
-        new { Title = "Sample Item 5", Action = "Sample5", Color = "purple" },
-        new { Title = "Sample Item 6", Action = "Sample6", Color = "orange" },
-        new { Title = "Sample Item 7", Action = "Sample7", Color = "teal" },
-        new { Title = "Sample Item 8", Action = "Sample8", Color = "indigo" },
+        new { Title = "Streaming Progress Updates in Long-Running ASP.NET Core Requests", Action = "Index", Color = "blue", CaseName = "StreamingProgress" },
+        new { Title = "Privacy", Action = "Privacy", Color = "gray", CaseName = "Privacy" },
+        new { Title = "Sample Item 3", Action = "Sample3", Color = "green", CaseName = "Sample3" },
+        new { Title = "Sample Item 4", Action = "Sample4", Color = "red", CaseName = "Sample4" },
+        new { Title = "Sample Item 5", Action = "Sample5", Color = "purple", CaseName = "Sample5" },
+        new { Title = "Sample Item 6", Action = "Sample6", Color = "orange", CaseName = "Sample6" },
+        new { Title = "Sample Item 7", Action = "Sample7", Color = "teal", CaseName = "Sample7" },
+        new { Title = "Sample Item 8", Action = "Sample8", Color = "indigo", CaseName = "Sample8" },
         // Add more items as needed
     };
     int cellWidth = 280; // Minimum width for each cell
@@ -21,7 +21,8 @@
         @foreach (var item in items)
         {
             <div class="flex items-center justify-center border-2 rounded-lg w-full h-full hover:bg-@item.Color-50 transition">
-                <a class="block text-@item.Color-600 rounded-lg text-center p-4 font-semibold" asp-area="" asp-controller="Home" asp-action="@item.Action">
+                <a class="block text-@item.Color-600 rounded-lg text-center p-4 font-semibold"
+                   asp-area="" asp-controller="ShowCase" asp-action="Index" asp-route-caseName="@item.CaseName">
                     @item.Title
                 </a>
             </div>

@@ -1,0 +1,19 @@
+<form asp-controller="ShowCase" asp-action="ActionHandler" method="post" enctype="multipart/form-data" class="mt-8 space-y-4">
+    <input type="hidden" name="caseName" value="StreamingProgress" />
+    <label class="block text-lg font-medium mb-2" for="fileInput">Upload a file:</label>
+    <input type="file" name="file" id="fileInput" class="block w-full border border-gray-300 rounded p-2" />
+    <button id="submitBtn" type="submit" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:bg-gray-400 disabled:text-gray-100 disabled:cursor-not-allowed" disabled>Submit</button>
+</form>
+@if (TempData["Message"] != null)
+{
+    <div class="mt-4 text-green-600 font-semibold">@TempData["Message"]</div>
+}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.getElementById('fileInput');
+    var submitBtn = document.getElementById('submitBtn');
+    fileInput.addEventListener('change', function() {
+        submitBtn.disabled = !fileInput.files.length;
+    });
+});
+</script>
