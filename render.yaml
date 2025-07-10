@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: samples-mvc
+    env: docker
+    plan: free
+    buildCommand: dotnet publish -c Release -o ./publish
+    startCommand: dotnet Samples.Mvc.dll
+    buildFilter:
+      paths:
+        - DotNet/Samples.Mvc/**
+    rootDir: DotNet/Samples.Mvc
+    autoDeploy: true
