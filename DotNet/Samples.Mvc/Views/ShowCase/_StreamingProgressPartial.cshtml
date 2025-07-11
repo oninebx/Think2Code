@@ -1,4 +1,7 @@
-<form asp-controller="ShowCase" asp-action="ActionHandler" method="post" enctype="multipart/form-data" class="mt-8 space-y-4">
+<link rel="stylesheet" href="~/css/showcase/streamingprogress.css" />
+<script src="~/js/showcase/streamingprogress.js"></script>
+
+<form asp-controller="ShowCase" asp-action="ActionHandler" method="post" id="uploadForm" enctype="multipart/form-data" class="mt-8 space-y-4">
     <input type="hidden" name="caseName" value="StreamingProgress" />
     <label class="block text-lg font-medium mb-2" for="fileInput">Upload a file:</label>
     <input type="file" name="file" id="fileInput" class="block w-full border border-gray-300 rounded p-2" />
@@ -8,12 +11,44 @@
 {
     <div class="mt-4 text-green-600 font-semibold">@TempData["Message"]</div>
 }
+
+<div id="progressMessageWindow"
+     class="fixed inset-0 z-[9999] px-12 bg-black/30 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 [&.visible]:opacity-100 [&.visible]:pointer-events-auto"
+     style="display: none;">
+  
+  <div class="w-full max-w-7xl mx-auto h-6 bg-[#222] rounded-full overflow-hidden shadow-md mb-4">
+    <div id="progressBar" class="h-full bg-gradient-to-r from-[#78be20] to-[#4caf50] transition-all duration-300"
+         style="width: 0%;">
+    </div>
+  </div>
+
+  <div id="progressMessageContent"
+       class="w-full max-w-7xl mx-auto relative bg-black text-white p-8 sm:p-10 rounded-lg shadow-2xl w-[75%] min-w-[300px] h-[60%] min-h-[40vh] text-left text-lg overflow-hidden mt-4"
+       style="display: none;">
+
+    <button id="progressCloseBtn"
+            type="button"
+            class="absolute top-[18px] right-[32px] text-white text-[2.2em] leading-none bg-transparent border-none cursor-pointer z-[10001] hover:text-[#ff5252] hover:bg-black transition-colors duration-200"
+            style="display: none;"
+            aria-label="Close"
+            onclick="ProgressMessageWindow.hide()">
+      &times;
+    </button>
+
+    <span id="progressMessageText" class="block mb-4"></span>
+
+    <div id="progressMessageStream"
+         class="mt-4 h-[calc(100%-2em)] max-h-full overflow-auto text-sm pr-2 scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-[linear-gradient(90deg,_#78be20_0%,_#4caf50_100%)] scrollbar-track-[#222] rounded-lg">
+    </div>
+  </div>
+</div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var fileInput = document.getElementById('fileInput');
     var submitBtn = document.getElementById('submitBtn');
     fileInput.addEventListener('change', function() {
         submitBtn.disabled = !fileInput.files.length;
     });
-});
+  });
+  ProgressMessageWindow.attachToForm('uploadForm', 'Messages in processing the uploaded bank statements');
 </script>

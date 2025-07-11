@@ -1,0 +1,95 @@
+.progress-message-window {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.progress-message-window.visible {
+  opacity: 1;
+  pointer-events: auto;
+  display: flex;
+}
+
+.progress-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 32px;
+  font-size: 2.2em;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10001;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.progress-close-btn:hover {
+  color: #ff5252;
+  background-color: #000;
+}
+
+.progress-bar-container {
+  width: 60vw;
+  height: 24px;
+  background: #222;
+  border-radius: 12px;
+  margin: 2em auto 1em auto;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #78be20 0%, #4caf50 100%);
+  width: 0%;
+  transition: width 0.3s;
+}
+.progress-message-content {
+  position: relative;
+  background: #000;
+  color: #fff;
+  padding: 2em 3em;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  min-width: 300px;
+  text-align: left;
+  font-size: 1.2em;
+  min-height: 40vh;
+  width:75%;
+  height:60%;
+  overflow: hidden;
+  margin-top: 1em;
+}
+
+.progress-message-stream {
+  margin-top:1em;
+  height: calc(100% - 2em);
+  max-height: 100%;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #78be20 #222;
+}
+.progress-message-stream::-webkit-scrollbar {
+  width: 10px;
+}
+.progress-message-stream::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #78be20 0%, #4caf50 100%);
+  border-radius: 8px;
+}
+.progress-message-stream::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 8px;
+}
+
+body.progress-message-active {
+    overflow: hidden;
+}

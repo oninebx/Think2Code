@@ -4,35 +4,30 @@ namespace Samples.Mvc.Controllers;
 
 public class ShowCaseController : Controller
 {
-    public IActionResult Index(string caseName)
+  private readonly Handlers.HandlerFactory _handlerFactory = new ();
+  public IActionResult Index(string caseName)
+  {
+    if (string.IsNullOrEmpty(caseName))
     {
-        if (string.IsNullOrEmpty(caseName))
-        {
-            return NotFound();
-        }
-        ViewData["CaseName"] = caseName;
-        return View();
+      return NotFound();
     }
+    ViewData["CaseName"] = caseName;
+    return View();
+  }
 
-    [HttpPost]
-    public IActionResult ActionHandler(string caseName)
+  [HttpPost]
+  public IActionResult ActionHandler(string caseName)
+  {
+    var handler = _handlerFactory._handlers.GetValueOrDefault(caseName);
+    if (handler == null)
     {
-        // Example: handle actions for each case
-        switch (caseName)
-        {
-            case "StreamingProgress":
-                var file = Request.Form.Files["file"];
-                TempData["Message"] = $"StreamingProgress action handled {file?.FileName}.";
-                break;
-            case "Privacy":
-                // Handle Privacy-specific POST logic here
-                TempData["Message"] = "Privacy action handled.";
-                break;
-            // Add more cases as needed
-            default:
-                TempData["Message"] = $"No handler for case: {caseName}";
-                break;
-        }
-        return RedirectToAction("Index", new { caseName });
+      TempData["Message"] = $"No handler found for case: {caseName}";
     }
+    else
+    {
+      TempData["Message"] = _handlerFactory._handlers[caseName].Invoke(HttpContext).Result;
+    }
+    
+    return new EmptyResult();
+  }
 }
