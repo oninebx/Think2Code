@@ -26,10 +26,18 @@ namespace Samples.Mvc.Handlers
           await context.Response.Body.FlushAsync();
         }
         int progress = 0;
-        while (progress < 100 && !context.RequestAborted.IsCancellationRequested)
+        while (progress <= 100 && !context.RequestAborted.IsCancellationRequested)
         {
-          await FlushProgressMessage(new { Progress = progress }, context.RequestAborted);
-          progress += 5; 
+          
+          progress += 5;
+          if (progress == 25 || progress == 50 || progress == 75)
+          {
+            await FlushProgressMessage(new { Progress = progress, Line = $"Error occurs at {progress}%", Error = $"Error details for {progress}%" }, context.RequestAborted);
+          }
+          else
+          {
+            await FlushProgressMessage(new { Progress = progress }, context.RequestAborted);
+          }
           await Task.Delay(500, context.RequestAborted); 
         }
         var file = context.Request.Form.Files["file"];
